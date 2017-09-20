@@ -86,7 +86,9 @@ app.post('/signup', (req, res, next) => {
   models.Users.create(signupObj)
     .then(resolve => {
       console.log('success: ', resolve);
-      res.render('signup');
+      //res.render('signup');
+      res.set('Location', '/');
+      res.end();
     }).catch(reject => {
       console.log('failure: ', reject);
       res.status(302);
