@@ -81,11 +81,24 @@ app.get('/signup', (req, res, next) => {
   res.render('signup');
 });
 
+app.post('/signup', (req, res, next) => {
+  var signupObj = req.body;
+  models.Users.create(signupObj)
+    .then(resolve => {
+      console.log('success: ', resolve);
+    }).catch(reject => {
+      console.log('failure: ', reject);
+    });
+  res.render('signup');
+});
+
 app.get('/login', (req, res, next) => {
   res.render('login');
 });
 
-
+app.post('/login', (req, res, next) => {
+  res.render('login');
+});
 /************************************************************/
 // Handle the code parameter route last - if all other routes fail
 // assume the route is a short code and try and handle it here.
