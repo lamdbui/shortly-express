@@ -86,10 +86,13 @@ app.post('/signup', (req, res, next) => {
   models.Users.create(signupObj)
     .then(resolve => {
       console.log('success: ', resolve);
+      res.render('signup');
     }).catch(reject => {
       console.log('failure: ', reject);
+      res.status(302);
+      res.set('Location', '/signup');
+      res.end();
     });
-  res.render('signup');
 });
 
 app.get('/login', (req, res, next) => {
