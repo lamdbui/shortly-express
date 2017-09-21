@@ -13,6 +13,7 @@ module.exports.createSession = (req, res, next) => {
       //res.cookie('sessionId', sessionObj.hash);
       //session.hash
       req.session = { 'hash': sessionObj.hash };
+      res.cookie('shortlyid', sessionObj.hash);
       next();
     }).catch(sessionReject => {
       //do something about failure
