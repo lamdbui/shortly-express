@@ -4,6 +4,7 @@ const utils = require('./lib/hashUtils');
 const partials = require('express-partials');
 const bodyParser = require('body-parser');
 const Auth = require('./middleware/auth');
+const cookieParser = require('./middleware/cookieParser');
 const models = require('./models');
 
 const app = express();
@@ -13,6 +14,7 @@ app.set('view engine', 'ejs');
 app.use(partials());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser);
 app.use(express.static(path.join(__dirname, '../public')));
 
 
@@ -108,7 +110,7 @@ app.post('/login', (req, res, next) => {
     // compare password with database password
   models.Users.get({ username: loginObj.username })
     .then(resolve => {
-      console.log('this is resolve :', resolve);
+      //console.log('this is resolve :', resolve);
       if (models.Users.compare(loginObj.password, resolve.password, resolve.salt)) {
         res.status(302);
         res.set('Location', '/');
@@ -119,7 +121,7 @@ app.post('/login', (req, res, next) => {
         res.end();
       }
     }).catch(reject => {
-      console.log('this is reject :', reject);
+      //console.log('this is reject :', reject);
       res.status(302);
       res.set('Location', '/login');
       res.end();
