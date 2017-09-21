@@ -13,6 +13,16 @@ class Users extends Model {
   }
 
   /**
+   * Retrieves a user object from the database
+   * @param {string} user - The username to retrieve.
+   * @returns {Promise<Object>} A promise that is fulfilled with the result of
+   * the record creation or rejected with the error that occured.
+   */
+  getUser(user) {
+    //return utils.compareHash(attempted, password, salt);
+  }
+
+  /**
    * Compares a password attempt with the previously stored password and salt.
    * @param {string} attempted - The attempted password.
    * @param {string} password - The hashed password from when the user signed up.

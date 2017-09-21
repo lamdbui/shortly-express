@@ -86,7 +86,7 @@ app.post('/signup', (req, res, next) => {
   models.Users.create(signupObj)
     .then(resolve => {
       console.log('success: ', resolve);
-      //res.render('signup');
+      res.status(302);
       res.set('Location', '/');
       res.end();
     }).catch(reject => {
@@ -102,7 +102,24 @@ app.get('/login', (req, res, next) => {
 });
 
 app.post('/login', (req, res, next) => {
-  res.render('login');
+  var loginObj = req.body;
+  // username, password
+  // retrive user row from users table
+    // compare password with database password
+  models.Users.get({ username: loginObj.username })
+    .then(resolve => {
+      console.log('this is resolve :', resolve);
+      if (models.Users.compare(loginObj.password, resolve.password, resolve.salt)) {
+        res.status(302);
+        res.set('Location', '/');
+        res.end();
+      }
+    }).catch(reject => {
+      console.log('this is reject :', reject);
+      res.status(302);
+      res.set('Location', '/login');
+      res.end();
+    });
 });
 /************************************************************/
 // Handle the code parameter route last - if all other routes fail
