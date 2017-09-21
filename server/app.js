@@ -113,6 +113,10 @@ app.post('/login', (req, res, next) => {
         res.status(302);
         res.set('Location', '/');
         res.end();
+      } else {
+        res.status(302);
+        res.set('Location', '/login');
+        res.end();
       }
     }).catch(reject => {
       console.log('this is reject :', reject);
