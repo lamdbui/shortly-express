@@ -4,7 +4,6 @@ const session = models.Sessions;
 const user = models.Users;
 
 module.exports.createSession = (req, res, next) => {
-  console.log('**** create sessions');
   if (req.cookies === undefined || Object.keys(req.cookies).length === 0) {
     session.create().then(resolve => {
       var sessionId = resolve.insertId;
